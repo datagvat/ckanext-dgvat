@@ -1,0 +1,205 @@
+header span {
+    color:                      #b1b1b1;
+}
+
+header .cdo {
+	float:                      right;
+    height:                     80px;
+    width:                      500px;
+	font-size:                  1em;
+  	font-family:                AsapRegular, sans-serif;
+  	padding-left:               20px;
+  	color:                      #FFF;
+    text-align:                 right;
+}
+
+header .cdo a {
+	color:                      #FFF;
+}
+
+.account {
+	font-size: 1em;
+	font-family: AsapRegular, sans-serif;
+	color: #333;
+	text-align: right;
+}
+
+.account a {
+	color: #333333;
+}
+
+#meta li{
+	display:inline;
+}
+
+#meta a{
+	display:block;
+	padding-left:20px;
+}
+
+#meta a.rss{
+	background:url(../img/rss.png) left top no-repeat;
+}
+
+
+footer .ogd{
+	float:left;
+}
+
+footer .ogd span{
+	color:#e3000f;
+	font-size:1.333em;
+	font-family:AsapRegular;
+	font-weight:bold;	
+}
+
+footer .imprint{
+	float:right;
+}
+
+footer .version {
+	float: right;
+	text-align: right;
+}
+
+/* clear those floating columns */
+ 
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* for safari */
+.clearfix { display: block }
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*            FORMULAR         */
+
+label.control-label {
+  font-weight: bold;
+  margin-top:	-8px;
+}
+
+label.control-label-required {
+  font-weight: bold;
+  /*color:#BB2222; */
+  content: "test";
+   float: left;
+    padding-top: 5px;
+    text-align: right;
+    width: 140px;
+}
+
+.form-horizontal .control-group:after {
+	margin-bottom: 10px;
+}
+
+em.star {
+	color:#BB2222;
+}
+
+.dataset-create-form .homepage-field,
+.dataset-create-form .id-field,
+.dataset-create-form .metadata_identifier-field,
+.dataset-create-form .metadata_created-field,
+.dataset-create-form .metadata_modified-field,
+.dataset-create-form .description-field,
+.dataset-create-form .categorization-field,
+.dataset-create-form .maintainer,
+.dataset-create-form .maintainer_link,
+.dataset-create-form .license-field,
+.dataset-create-form .begin-field,
+.dataset-create-form .end-field,
+.dataset-create-form .mandatory,
+.dataset-create-form .tags-field {
+  display: none;
+}
+
+.metastandard-description {
+	color:			#b1b1b1;
+}
+
+.metastandard-example {
+	color: 				#000;
+	background-color:	#efefef;
+}
+
+.buttonGrey {
+	font-size:1em;
+	background-color:#ccc;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding:5px;
+	padding-left:10px;
+	padding-right:10px;
+	color:#000;
+	cursor:pointer;
+}
+
+.buttonGrey:hover {
+	color:#000;
+	background-color:#d9d9d9;
+	text-decoration:none;
+}
+
+.arrowUp{
+	background-image:url(/wp-content/themes/datagvat/images/button-arrow-up.png);
+	background-repeat:no-repeat;
+	background-position:10px 5px;
+	padding-left:25px;	
+}
+
+.arrowDown{
+	background-image:url(/wp-content/themes/datagvat/images/button-arrow-down.png);
+	background-repeat:no-repeat;
+	background-position:10px 5px;
+	padding-left:25px;	
+}
+
+.arrowClose{
+	background-image:url(/wp-content/themes/datagvat/images/button-arrow-close.png);
+	background-repeat:no-repeat;
+	background-position:10px 5px;	
+	padding-left:25px;
+}
+
+.arrowReload{
+	background-image:url(/wp-content/themes/datagvat/images/button-reload.png);
+	background-repeat:no-repeat;
+	background-position:10px 6px;
+	padding-left:30px;	
+}
+
+.alignRight {
+	float: right;
+}
+
+.field_error {
+	color: #B94A48;
+	background-color: #FCF8E3;
+	border: 1px solid #FBEED5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	background-color: #F2DEDE;
+	border-color: #EED3D7;	
+}
+
+table.metadata td.dataset-label {
+	color: #666;
+	width: 40%;
+	border-bottom: solid 1px #C2C2C2;
+	padding: 5px;
+	font-weight: normal;
+}
+
+table.metadata td.dataset-details {
+	color: #333;
+	width: 60%;
+	border-bottom: solid 1px #C2C2C2;
+	padding: 5px;
+}

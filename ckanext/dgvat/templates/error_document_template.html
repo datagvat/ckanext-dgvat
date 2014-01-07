@@ -1,0 +1,16 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  
+  <py:def function="page_title">Error ${c.code}</py:def>
+
+  <div py:match="content">
+	Die von Ihnen aufgerufene Seite konnte leider nicht gefunden werden. <br /><br />
+	
+	<a href="${h.url('home')}">Zur&uuml;ck zur data.gv.at-Startseite</a><br /><br />
+    <!-- ${c.content} -->
+
+  </div>
+
+  <xi:include href="layout.html" />
+</html>

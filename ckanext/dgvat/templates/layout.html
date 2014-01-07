@@ -1,0 +1,272 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip=""> 
+  
+	    <head py:match="head">
+	        <meta charset="utf-8" />
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	        <title>${page_title()} - ${g.site_title}</title>
+	        <meta name="description" content="" />
+	        <meta name="author" content="" />
+	
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+	        <link rel="shortcut icon" href="${h.url_for_static(g.favicon)}" />
+	
+	        <py:choose>
+	            <py:when test="defined('optional_feed')">
+	                ${optional_feed()}
+	            </py:when>
+	            <py:otherwise>
+	                <link rel="alternate" type="application/atom+xml" title="${g.site_title} - Recent Revision History" href="${h.url_for(controller='revision', action='list', format='atom', days=1)}" />
+	            </py:otherwise>
+	        </py:choose>
+	
+	        <link rel="stylesheet" href="${h.url_for_static('/scripts/vendor/jqueryui/1.8.14/css/jquery-ui.custom.css')}" type="text/css" media="screen, print" />
+	        <link rel="stylesheet" href="${h.url_for_static('/css/bootstrap.min.css')}" type="text/css" media="screen, projection" />
+	        <link rel="stylesheet" href="${h.url_for_static('/css/chosen.css')}" type="text/css" />
+	        <link rel="stylesheet" href="${h.url_for_static('/css/style.css?v=2')}" />
+	        ${jsConditionalForIe(9, '&lt;script type="text/javascript" src="' + h.url_for_static('/scripts/vendor/html5shiv/html5.js') + '"&gt;&lt;/script&gt;')}
+	        <link rel="stylesheet" href="${h.url_for_static('/css/dgvat_styles.css')}" />
+	        <link rel="stylesheet" href="/wp-content/themes/datagvat/css/font.css" />
+	        <style type="text/css">
+				/* css for timepicker */
+				.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
+				.ui-timepicker-div dl{ text-align: left; } 
+				.ui-timepicker-div dl dt{ height: 25px; }
+				.ui-timepicker-div dl dd{ margin: -25px 0 10px 65px; }
+				.ui-timepicker-div td { font-size: 90%; }
+			</style>
+			        
+			<py:if test="defined('optional_head')">
+	    		${optional_head()}
+	  		</py:if>
+	
+	  		${h.literal(getattr(g, 'template_head_end', ''))}
+	    </head>
+	
+	  	<py:match path="header">
+	  		<header class="container">
+		  		<div class="cdo" py:if="c.cdo_group != ''">
+		        	<span>Zuordnung: </span><!-- <a href="${h.url_for('/auftritte/')}${c.cdo_group.name}"> -->${c.cdo_group.title}<!-- </a> --><br />
+	                <py:if test="c.cdo_group.image_url and c.cdo_group.image_url != ''">
+	                    <img height="50" src="${c.cdo_group.image_url}" alt="${c.cdo_group.title} Logo" title="${c.cdo_group.title} Logo" id="cdo_group" />
+	                </py:if>
+	            </div>
+				<a href="${h.url('home')}">
+		          <img height="70" src="${h.url_for_static('/'+g.site_logo)}" alt="${g.site_title} Logo" title="${g.site_title} Logo" id="logo" />
+		        </a>
+	            <br class="clearfix" /> 
+	            <div id="site-name">
+	              <a href="${h.url('home')}">data.gv.at &mdash; Katalog offener Daten Österreichs</a>
+	              <py:if test="c.is_sysadmin">
+	              	&nbsp;|&nbsp;
+	              	<a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_user:DgvatUserController', action='logout')}">Abmelden</a>
+	              </py:if>
+	            </div>
+	        </header>
+	  	</py:match>
+
+
+	  <footer py:match="footer" class="container">
+	    <div id="footer" class="clearfix">
+		  <div class="ogd"><a href="http://www.data.gv.at/hintergrund-infos/cooperation-ogd-oesterreich/" target="_blank"><p>Cooperation OGD <span>:</span> &Ouml;sterreich</p></a></div>
+		  <div class="imprint">
+		  	<p>
+		  		<!-- <a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_cockpit:DgvatCockpitController', action='about')}">&Uuml;ber</a> | --> 
+		  		<!-- <a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_cockpit:DgvatCockpitController', action='help')}">Hilfe</a> | --> 
+		  		<!-- <a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_cockpit:DgvatCockpitController', action='terms')}">AGBs</a> | --> 
+		  		<a href="http://www.data.gv.at/impressum/">Impressum</a>
+		  		<!-- DVR: 00000019 -->
+		  	</p>
+		  </div>
+		  <br /><br />
+		  <div class="clearfix">
+			  <div class="ogd" py:if="c.is_sysadmin"> 
+			  	<p>
+		  			<a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_user:DgvatUserController', action='index')}">Userliste</a> | 
+		  			<a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_user:DgvatUserController', action='register')}">User anlegen</a> |
+		  			<a href="${h.url_for(controller='group', action='index')}">Organizations</a> |
+		  			<a href="${h.url_for(controller='admin', action='index')}">CKAN-Admin</a> |
+		  			<a href="${h.url_for(controller='ckanext.harvest.controllers.view:ViewController', action='index')}">Harvester</a> |
+		  			<a href="${h.url_for(controller='ckanext.dgvat_por.controllers.dgvat_user:DgvatUserController', action='logout')}">Login as other user</a>
+		  		</p>
+			  </div>
+			  <div class="imprint">
+			    <p id="credits">
+			      Basiert auf <a href="http://ckan.org" target="_blank">CKAN</a> v${c.__version__} - powered by <a href="http://www.brz.gv.at" target="_blank">BRZ</a><br/>
+			    </p>
+			  </div>
+		  </div>
+		  <py:if test="not c.is_sysadmin">
+			<!-- Piwik -->
+			<script type="text/javascript">
+			var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.data.gv.at/piwik/" : "http://www.data.gv.at/piwik/");
+			document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+			</script><script type="text/javascript">
+			try { var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2); piwikTracker.trackPageView(); piwikTracker.enableLinkTracking(); } catch( err ) {}
+			</script><noscript><p><img src="http://www.data.gv.at/piwik/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
+			<!-- End Piwik Tracking Code -->
+		  </py:if>
+	    </div>
+	  </footer>
+  
+  
+	<py:match path="div[@id='scripts']" once="true">
+		${select('*')}
+
+		<script type="text/javascript" src="${h.url_for_static('/scripts/vendor/jquery.datepicker/jquery-ui-timepicker-addon.js')}"></script>
+		<script type="text/javascript" src="${h.url_for_static('/scripts/vendor/jquery.datepicker/jquery-ui-sliderAccess.js')}"></script>
+		<script type="text/javascript">
+		  var ckan_sysadmin = '${c.is_sysadmin}';
+		  $(document).ready(function() {
+		      if (ckan_sysadmin != 'True') {
+		          $(".ckan-sysadmin").hide();
+		      }
+			  $("#begin_datetime").datetimepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: 'yy-mm-dd',
+					showSecond: true,
+					timeFormat: 'hh:mm:ss',
+					separator: 'T'
+			  });
+			  $( '#end_datetime' ).datetimepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: 'yy-mm-dd',
+					showSecond: true,
+					timeFormat: 'Thh:mm:ss',
+					separator: 'T'
+			  });
+			  $( '#date_released' ).datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: 'yy-mm-dd'
+			  });
+			  $( '#date_updated' ).datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: 'yy-mm-dd'
+			  });
+			  $("#showExamples").show();
+			  $("#hideExamples").hide();
+			  $(".metastandard-example").hide();
+			  $("#hideDescription").show();
+			  $("#showDescription").hide();
+			  $(".metastandard-description").show();			  
+		  });
+		  
+		  $("#hideDescription").click(function(event){
+				$("#hideDescription").hide();
+/* 				$(".metastandard-description").slideUp('slow', function() {
+      			// Animation complete
+    			}); */
+    			$(".metastandard-description").hide();
+			  	$("#showDescription").show();
+	
+		   	});
+			$("#showDescription").click(function(event){
+				$("#showDescription").hide();
+				$(".metastandard-description").show();
+			  	$("#hideDescription").show();
+		   	});	
+			
+			$("#hideExamples").click(function(event){
+				$("#hideExamples").hide();
+				$(".metastandard-example").hide();
+			  	$("#showExamples").show();
+			
+			  	});
+			$("#showExamples").click(function(event){
+				$("#showExamples").hide();
+				$(".metastandard-example").show();
+			  	$("#hideExamples").show();
+			  	});
+			
+			function checkFormular() {
+				var formular = true;
+				var elements = getElementsByClassName('dataset-create-form', 'div', document), n = elements.length;
+				var isEditing = true;
+				if(elements.length =='1') {
+					isEditing = false;
+				}
+				if($('#title').val() == '') {
+					formular = false;
+					$('#error_list').append("<li>Bitte geben Sie einen Titel an.</li>");
+				}
+				if(isEditing==true) {
+					if($('#categorization').val() == null) {
+						formular = false;
+						$('#error_list').append("<li>Bitte w&auml;hlen Sie zumindestens eine Kategorie aus.</li>");
+					}
+					if($('#notes').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte geben Sie eine Beschreibung ein.</li>");
+					}		 
+					if($('#maintainer').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte geben Sie die Datenverantwortliche Stelle an.</li>");
+					}
+					if($('#metadata_identifier').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Eine Eindeutige ID fehlt.</li>");
+					}
+					if($('#license_id').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte wählen Sie eine Lizenz aus.</li>");
+					}					
+					if($('#name').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte geben Sie eine Url an.</li>");
+					}	
+					if($('#tag_string').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte geben Sie zumindestens ein Schlagwort ein.</li>");
+					}	
+					if($('#begin_datetime').val() == '') {
+						formular = false;
+						$('#error_list').append("<li>Bitte geben Sie die Zeitliche Ausdehnung (Anfang) an.</li>");
+					}						
+				}
+				return formular;
+			}
+
+/* 			function validateDate(date) {
+				var regex = /^([0-3]\d|[1-9])\.([0-3]\d|[1-9])\.(\d\d\d\d|\d\d)$/g;
+			  	if(regex.exec(date)) {
+					return true;
+				 }
+				 return false;
+			} */
+
+			//var showExamples = true;
+
+			function openSummary()
+			{
+				document.getElementById('publisher').value = document.getElementById('groups__0__id').options[document.getElementById('groups__0__id').selectedIndex].text;
+				$('#error_list').contents().remove();
+				var isFormular = checkFormular();
+				if(isFormular==true) {
+					var erg = prompt("&Auml;nderungskommentar", document.getElementById('log_message').innerHTML);
+					if(erg==null) {
+						return false;
+					}
+					document.getElementById('log_message').innerHTML = erg;
+					return true;
+				}
+			 	else {
+					$('#error_div').show();
+					var new_position = $('#error_div').offset();
+				    window.scrollTo(new_position.left,new_position.top);
+					return false;
+				}
+
+			}			
+		</script>   
+  	</py:match>  
+  	<xi:include href="layout_base.html" />
+
+</html>
